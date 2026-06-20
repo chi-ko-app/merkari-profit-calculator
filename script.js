@@ -20,6 +20,7 @@ const historyContainer = document.getElementById('historyContainer');
 const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 const themeButtons = document.querySelectorAll('.theme-btn');
 const fontButtons = document.querySelectorAll('.font-btn');
+const fontColorButtons = document.querySelectorAll('.font-color-btn');
 const chartTabs = document.querySelectorAll('.chart-tab');
 
 // ========================================
@@ -62,6 +63,10 @@ function setupEventListeners() {
 
     fontButtons.forEach(btn => {
         btn.addEventListener('click', () => changeFont(btn.dataset.font));
+    });
+
+    fontColorButtons.forEach(btn => {
+        btn.addEventListener('click', () => changeFontColor(btn.dataset.color));
     });
 
     chartTabs.forEach(tab => {
@@ -259,6 +264,22 @@ function changeFont(font) {
 }
 
 // ========================================
+// フォントカラー変更
+// ========================================
+
+function changeFontColor(color) {
+    document.documentElement.setAttribute('data-font-color', color);
+    localStorage.setItem('fontColor', color);
+
+    fontColorButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.color === color) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+// ========================================
 // グラフ
 // ========================================
 
@@ -374,10 +395,12 @@ function toggleDarkMode() {
 function loadSettings() {
     const savedTheme = localStorage.getItem('theme') || 'pink';
     const savedFont = localStorage.getItem('font') || 'noto';
+    const savedFontColor = localStorage.getItem('fontColor') || 'black';
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
 
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.documentElement.setAttribute('data-font', savedFont);
+    document.documentElement.setAttribute('data-font-color', savedFontColor);
     document.body.setAttribute('data-dark-mode', savedDarkMode);
 
     // ダークモードボタンのアイコンを更新
@@ -394,6 +417,13 @@ function loadSettings() {
     fontButtons.forEach(btn => {
         btn.classList.remove('active');
         if (btn.dataset.font === savedFont) {
+            btn.classList.add('active');
+        }
+    });
+
+    fontColorButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.color === savedFontColor) {
             btn.classList.add('active');
         }
     });

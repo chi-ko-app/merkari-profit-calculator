@@ -77,6 +77,15 @@
     --font-family: 'Quicksand', sans-serif;
 }
 
+/* フォントカラー */
+:root[data-font-color="black"] {
+    --color-text-primary: #000000;
+}
+
+:root[data-font-color="white"] {
+    --color-text-primary: #FFFFFF;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -607,6 +616,31 @@ body[data-dark-mode="true"] {
 }
 
 .theme-btn.active {
+    border-color: #333;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* フォントカラー */
+.font-color-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.font-color-btn {
+    aspect-ratio: 1;
+    border: 3px solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.font-color-btn:hover {
+    transform: scale(1.05);
+}
+
+.font-color-btn.active {
     border-color: #333;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
