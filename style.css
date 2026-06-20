@@ -1,53 +1,67 @@
-/* ========================================
-   グローバルスタイル & 変数定義
-   ======================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
 
 :root {
-    /* ライトモードカラー */
-    --color-bg-primary: #ffffff;
-    --color-bg-secondary: #f8f7fc;
-    --color-bg-tertiary: #f0eefd;
+    /* テーマ: ピンク（デフォルト） */
+    --color-gradient: linear-gradient(135deg, #FFB6D9 0%, #FFC0CB 100%);
+    --color-bg-primary: #fff;
+    --color-bg-secondary: #FFF5FB;
     --color-text-primary: #1a1a1a;
-    --color-text-secondary: #666666;
-    --color-text-tertiary: #999999;
-    --color-accent: #ea352d;
-    --color-accent-light: #ff6b5b;
-    --color-border: #e8e6f0;
-    --color-shadow: rgba(0, 0, 0, 0.1);
-    --color-glass: rgba(255, 255, 255, 0.7);
+    --color-accent: #FF69B4;
 
-    /* ダークモードカラー */
-    --dm-color-bg-primary: #0f0f0f;
-    --dm-color-bg-secondary: #1a1a1a;
-    --dm-color-bg-tertiary: #2a2a2a;
-    --dm-color-text-primary: #ffffff;
-    --dm-color-text-secondary: #cccccc;
-    --dm-color-text-tertiary: #999999;
-    --dm-color-glass: rgba(255, 255, 255, 0.08);
-
-    /* グラデーション */
-    --gradient-accent: linear-gradient(135deg, #ea352d 0%, #ff6b5b 100%);
-    --gradient-bg: linear-gradient(135deg, #f8f7fc 0%, #f5f3ff 100%);
-
-    /* アニメーション */
-    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --font-family: 'Noto Sans JP', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg-primary: var(--dm-color-bg-primary);
-        --color-bg-secondary: var(--dm-color-bg-secondary);
-        --color-bg-tertiary: var(--dm-color-bg-tertiary);
-        --color-text-primary: var(--dm-color-text-primary);
-        --color-text-secondary: var(--dm-color-text-secondary);
-        --color-text-tertiary: var(--dm-color-text-tertiary);
-        --color-glass: var(--dm-color-glass);
-        --gradient-bg: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-    }
+/* テーマ: 水色 */
+:root[data-theme="blue"] {
+    --color-gradient: linear-gradient(135deg, #B0E0E6 0%, #ADD8E6 100%);
+    --color-bg-secondary: #F0F8FF;
+    --color-accent: #00CED1;
+}
+
+/* テーマ: ミントグリーン */
+:root[data-theme="mint"] {
+    --color-gradient: linear-gradient(135deg, #98FF98 0%, #A8E6A8 100%);
+    --color-bg-secondary: #F0FFF0;
+    --color-accent: #00FF7F;
+}
+
+/* テーマ: ラベンダー */
+:root[data-theme="lavender"] {
+    --color-gradient: linear-gradient(135deg, #E6D5FF 0%, #D8AFFF 100%);
+    --color-bg-secondary: #F8F3FF;
+    --color-accent: #9370DB;
+}
+
+/* テーマ: ホワイト */
+:root[data-theme="white"] {
+    --color-gradient: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%);
+    --color-bg-secondary: #FAFAFA;
+    --color-accent: #666;
+}
+
+/* テーマ: 薄いイエロー */
+:root[data-theme="yellow"] {
+    --color-gradient: linear-gradient(135deg, #FFFFE0 0%, #FFFACD 100%);
+    --color-bg-secondary: #FFFFF0;
+    --color-accent: #FFD700;
+}
+
+/* テーマ: ダーク */
+:root[data-theme="dark"] {
+    --color-gradient: linear-gradient(135deg, #2C2C2C 0%, #1A1A1A 100%);
+    --color-bg-primary: #0f0f0f;
+    --color-bg-secondary: #1a1a1a;
+    --color-text-primary: #fff;
+    --color-accent: #64B5F6;
+}
+
+/* フォント */
+:root[data-font="serif"] {
+    --font-family: 'Georgia', serif;
+}
+
+:root[data-font="rounded"] {
+    --font-family: 'Comic Sans MS', cursive;
 }
 
 * {
@@ -55,46 +69,58 @@
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
     width: 100%;
     height: 100%;
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--gradient-bg);
+    font-family: var(--font-family);
+    background: var(--color-bg-secondary);
     color: var(--color-text-primary);
-    line-height: 1.6;
 }
-
-/* ========================================
-   アプリコンテナ
-   ======================================== */
 
 .app-container {
     width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--color-bg-primary);
 }
 
 .app-header {
     padding: max(16px, env(safe-area-inset-top)) 20px 16px;
-    text-align: center;
-    border-bottom: 1px solid var(--color-border);
     background: var(--color-bg-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(10px);
-    background-color: var(--color-glass);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .app-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--color-text-primary);
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    flex: 1;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+    background: var(--color-bg-secondary);
+    transform: rotate(20deg);
 }
 
 .app-main {
@@ -104,19 +130,19 @@ html, body {
     flex-direction: column;
     gap: 24px;
     overflow-y: auto;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-/* ========================================
-   利益ウィジェット（メインカード）
-   ======================================== */
-
+/* 利益ウィジェット */
 .profit-widget {
-    background: var(--gradient-accent);
-    border-radius: 28px;
+    background: var(--color-gradient);
+    border-radius: 32px;
     padding: 32px 24px;
     color: white;
-    box-shadow: 0 12px 40px rgba(234, 53, 45, 0.25);
-    animation: slideInDown 0.6s var(--transition-smooth);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+    animation: slideInDown 0.6s ease;
     position: relative;
     overflow: hidden;
 }
@@ -159,14 +185,12 @@ html, body {
     font-size: 56px;
     font-weight: 800;
     letter-spacing: -2px;
-    animation: scaleIn 0.6s var(--transition-smooth);
 }
 
 .profit-rate-widget {
     font-size: 36px;
     font-weight: 800;
     opacity: 0.98;
-    letter-spacing: -1px;
 }
 
 .profit-widget-details {
@@ -191,14 +215,11 @@ html, body {
     font-size: 11px;
     opacity: 0.8;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
 }
 
 .detail-value {
     font-size: 18px;
     font-weight: 800;
-    letter-spacing: -0.5px;
 }
 
 .detail-separator {
@@ -207,10 +228,7 @@ html, body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* ========================================
-   入力セクション
-   ======================================== */
-
+/* 入力セクション */
 .input-section {
     display: flex;
     flex-direction: column;
@@ -235,7 +253,7 @@ html, body {
     right: 16px;
     font-size: 16px;
     font-weight: 600;
-    color: var(--color-text-secondary);
+    color: #999;
     pointer-events: none;
 }
 
@@ -244,30 +262,23 @@ html, body {
     padding: 16px 44px 16px 18px;
     font-size: 16px;
     font-weight: 600;
-    border: 2px solid var(--color-border);
-    border-radius: 16px;
-    background: var(--color-bg-secondary);
+    border: 2px solid #E0E0E0;
+    border-radius: 20px;
+    background: var(--color-bg-primary);
     color: var(--color-text-primary);
-    transition: all var(--transition-normal);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
     -webkit-appearance: none;
-    appearance: none;
 }
 
 .app-input:focus {
     outline: none;
     border-color: var(--color-accent);
-    background: var(--color-bg-primary);
-    box-shadow: 0 0 0 8px rgba(234, 53, 45, 0.1);
+    background: var(--color-bg-secondary);
+    box-shadow: 0 0 0 8px rgba(255, 105, 180, 0.1);
 }
 
-.app-input::placeholder {
-    color: var(--color-text-tertiary);
-}
-
-/* ========================================
-   配送方法セクション
-   ======================================== */
-
+/* 配送方法 */
 .shipping-section {
     display: flex;
     flex-direction: column;
@@ -295,36 +306,33 @@ html, body {
 .shipping-radio {
     position: absolute;
     opacity: 0;
-    width: 0;
-    height: 0;
 }
 
 .card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 10px;
     padding: 20px 12px;
-    background: var(--color-bg-secondary);
-    border: 2.5px solid var(--color-border);
-    border-radius: 20px;
-    transition: all var(--transition-normal);
-    backdrop-filter: blur(10px);
+    background: var(--color-bg-primary);
+    border: 2.5px solid #E0E0E0;
+    border-radius: 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .shipping-card:hover .card-content {
     border-color: var(--color-accent);
-    box-shadow: 0 8px 24px var(--color-shadow);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
 }
 
 .shipping-radio:checked ~ .card-content {
-    background: var(--gradient-accent);
+    background: var(--color-gradient);
     border-color: transparent;
     color: white;
-    box-shadow: 0 12px 32px rgba(234, 53, 45, 0.3);
-    animation: popIn 0.4s var(--transition-smooth);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.4s ease;
 }
 
 .card-icon {
@@ -333,7 +341,7 @@ html, body {
 }
 
 .shipping-radio:checked ~ .card-content .card-icon {
-    animation: bounce 0.6s var(--transition-smooth);
+    animation: bounce 0.6s ease;
 }
 
 .card-text {
@@ -346,7 +354,6 @@ html, body {
 .card-name {
     font-size: 13px;
     font-weight: 600;
-    color: var(--color-text-primary);
     text-align: center;
 }
 
@@ -356,7 +363,6 @@ html, body {
 
 .card-price {
     font-size: 12px;
-    color: var(--color-text-secondary);
     font-weight: 500;
 }
 
@@ -364,10 +370,7 @@ html, body {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* ========================================
-   カスタム送料カード
-   ======================================== */
-
+/* カスタム送料 */
 .custom-shipping {
     grid-column: 1 / -1;
 }
@@ -390,7 +393,6 @@ html, body {
 .input-prefix {
     font-size: 14px;
     font-weight: 600;
-    color: var(--color-text-secondary);
 }
 
 .custom-input {
@@ -402,16 +404,12 @@ html, body {
     background: transparent;
     color: var(--color-text-primary);
     outline: none;
+    font-family: var(--font-family);
     -webkit-appearance: none;
-    appearance: none;
-}
-
-.custom-input::placeholder {
-    color: var(--color-text-tertiary);
 }
 
 .shipping-radio:checked ~ .custom-content {
-    background: var(--gradient-accent);
+    background: var(--color-gradient);
     color: white;
 }
 
@@ -421,10 +419,6 @@ html, body {
 
 .shipping-radio:checked ~ .custom-content .custom-input {
     color: white;
-}
-
-.shipping-radio:checked ~ .custom-content .custom-input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
 }
 
 .custom-label {
@@ -437,34 +431,271 @@ html, body {
     color: white;
 }
 
-/* ========================================
-   エラーバナー
-   ======================================== */
+/* 保存ボタン */
+.save-btn {
+    padding: 16px 24px;
+    background: var(--color-gradient);
+    border: none;
+    border-radius: 24px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    font-family: var(--font-family);
+}
 
+.save-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.save-btn:active {
+    transform: translateY(-2px);
+}
+
+/* エラー */
 .error-banner {
-    background: linear-gradient(135deg, rgba(234, 53, 45, 0.1) 0%, rgba(255, 107, 91, 0.05) 100%);
-    border: 1.5px solid rgba(234, 53, 45, 0.3);
+    background: linear-gradient(135deg, rgba(255, 107, 91, 0.1) 0%, rgba(255, 107, 91, 0.05) 100%);
+    border: 1.5px solid rgba(255, 107, 91, 0.3);
     border-radius: 16px;
     padding: 16px 18px;
-    color: var(--color-accent);
+    color: #FF6B5B;
     font-size: 14px;
     font-weight: 600;
-    animation: slideInUp 0.3s var(--transition-normal);
+    animation: slideInUp 0.3s ease;
     margin-top: 8px;
 }
 
-/* ========================================
-   セーフエリア
-   ======================================== */
-
-.safe-area {
-    height: max(20px, env(safe-area-inset-bottom));
+/* 設定パネル */
+.settings-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
 }
 
-/* ========================================
-   アニメーション定義
-   ======================================== */
+.settings-overlay.active {
+    display: block;
+}
 
+.settings-panel {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-bg-primary);
+    border-radius: 32px 32px 0 0;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 1000;
+    animation: slideUp 0.4s ease;
+}
+
+.settings-panel.active {
+    display: block;
+}
+
+.settings-content {
+    padding: 32px 24px 32px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: var(--color-bg-secondary);
+    transform: rotate(90deg);
+}
+
+.settings-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.settings-section {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+}
+
+.settings-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* テーマカラー */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.theme-btn {
+    aspect-ratio: 1;
+    border: 3px solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-btn:hover {
+    transform: scale(1.05);
+}
+
+.theme-btn.active {
+    border-color: #333;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* フォント */
+.font-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.font-btn {
+    padding: 12px 16px;
+    background: var(--color-bg-secondary);
+    border: 2px solid #E0E0E0;
+    border-radius: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.font-btn:hover {
+    border-color: var(--color-accent);
+}
+
+.font-btn.active {
+    background: var(--color-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+/* 履歴 */
+.history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    background: var(--color-bg-secondary);
+    padding: 16px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.history-amount {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color-accent);
+}
+
+.history-date {
+    font-size: 12px;
+    color: #999;
+}
+
+.empty-message {
+    text-align: center;
+    color: #999;
+    padding: 24px;
+    font-size: 14px;
+}
+
+/* グラフ */
+.chart-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.chart-tab {
+    padding: 12px;
+    background: var(--color-bg-secondary);
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+}
+
+.chart-tab:hover {
+    border-color: var(--color-accent);
+}
+
+.chart-tab.active {
+    background: var(--color-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 20px;
+    background: var(--color-bg-secondary);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/* クリアボタン */
+.clear-btn {
+    width: 100%;
+    padding: 14px;
+    background: #FF6B6B;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+}
+
+.clear-btn:hover {
+    background: #FF5252;
+    transform: translateY(-2px);
+}
+
+/* アニメーション */
 @keyframes slideInDown {
     from {
         opacity: 0;
@@ -487,14 +718,21 @@ html, body {
     }
 }
 
-@keyframes scaleIn {
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: scale(0.8);
     }
     to {
         opacity: 1;
-        transform: scale(1);
     }
 }
 
@@ -539,10 +777,7 @@ html, body {
     }
 }
 
-/* ========================================
-   レスポンシブデザイン
-   ======================================== */
-
+/* レスポンシブ */
 @media (max-width: 600px) {
     .app-main {
         padding: 16px;
@@ -550,87 +785,23 @@ html, body {
     }
 
     .profit-widget {
+        border-radius: 28px;
         padding: 24px 20px;
-        border-radius: 24px;
     }
 
     .profit-number {
         font-size: 48px;
     }
 
-    .shipping-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-
-    .card-content {
-        padding: 18px 10px;
-    }
-
-    .card-icon {
-        font-size: 28px;
-    }
-
-    .card-name {
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 400px) {
-    .app-header {
-        padding-top: max(12px, env(safe-area-inset-top));
-    }
-
-    .app-title {
-        font-size: 16px;
-    }
-
-    .app-main {
-        padding: 12px;
-        gap: 16px;
-    }
-
-    .profit-widget {
-        padding: 20px 16px;
-        border-radius: 20px;
-    }
-
-    .profit-number {
-        font-size: 40px;
-    }
-
-    .profit-rate-widget {
-        font-size: 16px;
-    }
-
-    .card-content {
-        padding: 16px 8px;
-    }
-
-    .card-icon {
-        font-size: 24px;
-    }
-}
-
-/* ========================================
-   タブレット対応
-   ======================================== */
-
-@media (min-width: 768px) {
-    .app-container {
-        display: flex;
-        justify-content: center;
-    }
-
-    .app-main {
-        max-width: 600px;
-    }
-
-    .shipping-grid {
+    .theme-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 
-    .custom-shipping {
-        grid-column: 1 / -1;
+    .shipping-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
+}
+
+.safe-area {
+    height: max(20px, env(safe-area-inset-bottom));
 }

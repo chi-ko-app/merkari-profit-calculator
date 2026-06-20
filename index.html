@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メル利益</title>
-    <meta name="apple-mobile-web-app-title" content="メル利益">
-    <meta name="application-name" content="メル利益">
-    <link rel="stylesheet" href="style.css">
-    <!-- ファイコン（ブラウザタブに表示） -->
+    <title>メル益♡</title>
+    <meta name="apple-mobile-web-app-title" content="メル益♡">
+    <meta name="application-name" content="メル益♡">
     <link rel="icon" type="image/png" href="icon.png">
-    <!-- iPhoneホーム画面用アイコン -->
     <link rel="apple-touch-icon" href="icon.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="app-container">
         <!-- ステータスバー風ヘッダー -->
         <header class="app-header">
-            <h1 class="app-title">メル利益</h1>
+            <div class="header-content">
+                <h1 class="app-title">メル益♡</h1>
+                <button class="settings-btn" id="settingsBtn">⚙️</button>
+            </div>
         </header>
 
         <!-- メインコンテンツ -->
-        <main class="app-main">
-            <!-- 利益カード（画面上部に大きく） -->
+        <main class="app-main" id="mainContent">
+            <!-- 利益カード -->
             <div class="profit-widget">
                 <div class="profit-widget-content">
                     <p class="profit-label">あなたの利益</p>
@@ -43,23 +45,16 @@
                 </div>
             </div>
 
-            <!-- 売値入力セクション -->
+            <!-- 売値入力 -->
             <section class="input-section">
                 <label class="input-label">売値</label>
                 <div class="input-wrapper">
-                    <input
-                        type="number"
-                        id="sellingPrice"
-                        class="app-input"
-                        placeholder="金額を入力"
-                        min="0"
-                        step="100"
-                    >
+                    <input type="number" id="sellingPrice" class="app-input" placeholder="金額を入力" min="0" step="100">
                     <span class="input-suffix">¥</span>
                 </div>
             </section>
 
-            <!-- 配送方法セクション -->
+            <!-- 配送方法 -->
             <section class="shipping-section">
                 <label class="section-title">配送方法を選択</label>
                 <div class="shipping-grid">
@@ -114,23 +109,79 @@
                     <div class="card-content custom-content">
                         <div class="custom-input-wrapper">
                             <span class="input-prefix">¥</span>
-                            <input
-                                type="number"
-                                id="customShipping"
-                                class="custom-input"
-                                placeholder="金額"
-                                min="0"
-                                step="10"
-                            >
+                            <input type="number" id="customShipping" class="custom-input" placeholder="金額" min="0" step="10">
                         </div>
                         <span class="custom-label">カスタム</span>
                     </div>
                 </label>
             </section>
 
+            <!-- 保存ボタン -->
+            <button class="save-btn" id="saveBtn">💾 この結果を保存</button>
+
             <!-- エラーメッセージ -->
             <div class="error-banner" id="errorMessage" style="display: none;"></div>
         </main>
+
+        <!-- 設定画面 -->
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-content">
+                <!-- クローズボタン -->
+                <button class="close-btn" id="closeSettingsBtn">✕</button>
+
+                <h2 class="settings-title">⚙️ 設定</h2>
+
+                <!-- テーマセレクター -->
+                <div class="settings-section">
+                    <h3 class="settings-subtitle">🎨 テーマカラー</h3>
+                    <div class="theme-grid">
+                        <button class="theme-btn" data-theme="pink" style="background: linear-gradient(135deg, #FFB6D9, #FFC0CB);" title="ピンク"></button>
+                        <button class="theme-btn" data-theme="blue" style="background: linear-gradient(135deg, #B0E0E6, #ADD8E6);" title="水色"></button>
+                        <button class="theme-btn" data-theme="mint" style="background: linear-gradient(135deg, #98FF98, #A8E6A8);" title="ミントグリーン"></button>
+                        <button class="theme-btn" data-theme="lavender" style="background: linear-gradient(135deg, #E6D5FF, #D8AFFF);" title="ラベンダー"></button>
+                        <button class="theme-btn" data-theme="white" style="background: linear-gradient(135deg, #FFFFFF, #F5F5F5);" title="ホワイト"></button>
+                        <button class="theme-btn" data-theme="yellow" style="background: linear-gradient(135deg, #FFFFE0, #FFFACD);" title="薄いイエロー"></button>
+                        <button class="theme-btn" data-theme="dark" style="background: linear-gradient(135deg, #2C2C2C, #1A1A1A);" title="ダーク"></button>
+                    </div>
+                </div>
+
+                <!-- フォントセレクター -->
+                <div class="settings-section">
+                    <h3 class="settings-subtitle">📝 フォント</h3>
+                    <div class="font-options">
+                        <button class="font-btn" data-font="noto">游ゴシック</button>
+                        <button class="font-btn" data-font="serif">セリフ</button>
+                        <button class="font-btn" data-font="rounded">丸ゴシック</button>
+                    </div>
+                </div>
+
+                <!-- 履歴 -->
+                <div class="settings-section">
+                    <h3 class="settings-subtitle">📊 計算履歴</h3>
+                    <div class="history-container" id="historyContainer">
+                        <p class="empty-message">履歴はまだありません</p>
+                    </div>
+                </div>
+
+                <!-- グラフ -->
+                <div class="settings-section">
+                    <h3 class="settings-subtitle">📈 利益推移</h3>
+                    <div class="chart-tabs">
+                        <button class="chart-tab active" data-chart="daily">日別</button>
+                        <button class="chart-tab" data-chart="monthly">月別</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="profitChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- クリアボタン -->
+                <button class="clear-btn" id="clearHistoryBtn">🗑️ 履歴をクリア</button>
+            </div>
+        </div>
+
+        <!-- オーバーレイ -->
+        <div class="settings-overlay" id="settingsOverlay"></div>
 
         <!-- パディング -->
         <div class="safe-area"></div>
