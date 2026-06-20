@@ -103,11 +103,20 @@ html, body {
 }
 
 /* ダークモード */
-body[data-dark-mode="true"] {
+body[data-dark-mode="true"]:not([data-font-color="black"]) {
     --color-bg-primary: #0f0f0f;
     --color-bg-secondary: #1a1a1a;
     --color-bg-tertiary: #2a2a2a;
     --color-text-primary: #ffffff;
+    --color-text-secondary: #cccccc;
+    --color-text-tertiary: #999999;
+    --color-glass: rgba(255, 255, 255, 0.08);
+}
+
+body[data-dark-mode="true"] {
+    --color-bg-primary: #0f0f0f;
+    --color-bg-secondary: #1a1a1a;
+    --color-bg-tertiary: #2a2a2a;
     --color-text-secondary: #cccccc;
     --color-text-tertiary: #999999;
     --color-glass: rgba(255, 255, 255, 0.08);
