@@ -11,6 +11,7 @@ const profitWidget = document.getElementById('profitWidget');
 const profitRateWidget = document.getElementById('profitRateWidget');
 const errorMessage = document.getElementById('errorMessage');
 const saveBtn = document.getElementById('saveBtn');
+const darkModeBtn = document.getElementById('darkModeBtn');
 const settingsBtn = document.getElementById('settingsBtn');
 const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 const settingsPanel = document.getElementById('settingsPanel');
@@ -49,6 +50,7 @@ function setupEventListeners() {
     });
     customShippingInput.addEventListener('input', calculateProfit);
     saveBtn.addEventListener('click', saveResult);
+    darkModeBtn.addEventListener('click', toggleDarkMode);
     settingsBtn.addEventListener('click', openSettings);
     closeSettingsBtn.addEventListener('click', closeSettings);
     settingsOverlay.addEventListener('click', closeSettings);
@@ -346,15 +348,40 @@ function updateChart(type = 'daily') {
 }
 
 // ========================================
+// ダークモード
+// ========================================
+
+function toggleDarkMode() {
+    const isDarkMode = document.body.getAttribute('data-dark-mode') === 'true';
+    const newMode = !isDarkMode;
+
+    document.body.setAttribute('data-dark-mode', newMode);
+    localStorage.setItem('darkMode', newMode);
+
+    // ボタンのアイコンを更新
+    darkModeBtn.textContent = newMode ? '☀️' : '🌙';
+
+    // チャートを更新
+    if (window.chartInstance) {
+        updateChart();
+    }
+}
+
+// ========================================
 // 設定の保存と読み込み
 // ========================================
 
 function loadSettings() {
     const savedTheme = localStorage.getItem('theme') || 'pink';
     const savedFont = localStorage.getItem('font') || 'noto';
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
 
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.documentElement.setAttribute('data-font', savedFont);
+    document.body.setAttribute('data-dark-mode', savedDarkMode);
+
+    // ダークモードボタンのアイコンを更新
+    darkModeBtn.textContent = savedDarkMode ? '☀️' : '🌙';
 
     // アクティブボタンを更新
     themeButtons.forEach(btn => {
