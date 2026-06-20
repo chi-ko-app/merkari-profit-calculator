@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メルカリ利益計算</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- ステータスバー風ヘッダー -->
+        <header class="app-header">
+            <h1 class="app-title">利益計算</h1>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main class="app-main">
+            <!-- 利益カード（画面上部に大きく） -->
+            <div class="profit-widget">
+                <div class="profit-widget-content">
+                    <p class="profit-label">あなたの利益</p>
+                    <p class="profit-number" id="profitWidget">¥0</p>
+                    <p class="profit-rate-widget" id="profitRateWidget">0%</p>
+                </div>
+                <div class="profit-widget-details">
+                    <div class="detail-item">
+                        <span class="detail-label">手数料</span>
+                        <span class="detail-value" id="mercariFeeCopy">¥0</span>
+                    </div>
+                    <div class="detail-separator"></div>
+                    <div class="detail-item">
+                        <span class="detail-label">送料</span>
+                        <span class="detail-value" id="shippingFeeCopy">¥0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 売値入力セクション -->
+            <section class="input-section">
+                <label class="input-label">売値</label>
+                <div class="input-wrapper">
+                    <input
+                        type="number"
+                        id="sellingPrice"
+                        class="app-input"
+                        placeholder="金額を入力"
+                        min="0"
+                        step="100"
+                    >
+                    <span class="input-suffix">¥</span>
+                </div>
+            </section>
+
+            <!-- 配送方法セクション -->
+            <section class="shipping-section">
+                <label class="section-title">配送方法を選択</label>
+                <div class="shipping-grid">
+                    <label class="shipping-card">
+                        <input type="radio" name="shipping" value="210" data-label="ゆうパケットポスト" class="shipping-radio">
+                        <div class="card-content">
+                            <div class="card-icon">📫</div>
+                            <div class="card-text">
+                                <span class="card-name">ゆうパケット</span>
+                                <span class="card-price">¥210</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="shipping-card">
+                        <input type="radio" name="shipping" value="210" data-label="ネコポス" class="shipping-radio">
+                        <div class="card-content">
+                            <div class="card-icon">🐱</div>
+                            <div class="card-text">
+                                <span class="card-name">ネコポス</span>
+                                <span class="card-price">¥210</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="shipping-card">
+                        <input type="radio" name="shipping" value="450" data-label="宅急便コンパクト" class="shipping-radio">
+                        <div class="card-content">
+                            <div class="card-icon">📦</div>
+                            <div class="card-text">
+                                <span class="card-name">宅急便</span>
+                                <span class="card-price">¥450</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="shipping-card">
+                        <input type="radio" name="shipping" value="520" data-label="ゆうパケットプラス" class="shipping-radio">
+                        <div class="card-content">
+                            <div class="card-icon">📮</div>
+                            <div class="card-text">
+                                <span class="card-name">ゆうパケット+</span>
+                                <span class="card-price">¥520</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- カスタム送料 -->
+                <label class="shipping-card custom-shipping" id="customShippingCard">
+                    <input type="radio" name="shipping" value="custom" data-label="カスタム" class="shipping-radio">
+                    <div class="card-content custom-content">
+                        <div class="custom-input-wrapper">
+                            <span class="input-prefix">¥</span>
+                            <input
+                                type="number"
+                                id="customShipping"
+                                class="custom-input"
+                                placeholder="金額"
+                                min="0"
+                                step="10"
+                            >
+                        </div>
+                        <span class="custom-label">カスタム</span>
+                    </div>
+                </label>
+            </section>
+
+            <!-- エラーメッセージ -->
+            <div class="error-banner" id="errorMessage" style="display: none;"></div>
+        </main>
+
+        <!-- パディング -->
+        <div class="safe-area"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
