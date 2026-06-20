@@ -269,6 +269,7 @@ function changeFont(font) {
 
 function changeFontColor(color) {
     document.documentElement.setAttribute('data-font-color', color);
+    document.body.setAttribute('data-font-color', color);
     localStorage.setItem('fontColor', color);
 
     fontColorButtons.forEach(btn => {
@@ -402,6 +403,7 @@ function loadSettings() {
     document.documentElement.setAttribute('data-font', savedFont);
     document.documentElement.setAttribute('data-font-color', savedFontColor);
     document.body.setAttribute('data-dark-mode', savedDarkMode);
+    document.body.setAttribute('data-font-color', savedFontColor);
 
     // ダークモードボタンのアイコンを更新
     darkModeBtn.textContent = savedDarkMode ? '☀️' : '🌙';

@@ -79,11 +79,11 @@
 
 /* フォントカラー */
 :root[data-font-color="black"] {
-    --color-text-primary: #000000;
+    --color-text-primary: #000000 !important;
 }
 
 :root[data-font-color="white"] {
-    --color-text-primary: #FFFFFF;
+    --color-text-primary: #FFFFFF !important;
 }
 
 * {
